@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class AuctionCreateRequest {
 
-    private UUID productId;
+    private UUID auctionProductId;
     private BigDecimal startingBid;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

@@ -1,5 +1,6 @@
 package com.sparta.limited.auction_service.auction.domain.model;
 
+import com.sparta.limited.common_module.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,14 +20,16 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "p_auction")
-public class Auction {
+public class Auction extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
     private Long userId;
+
+    @Column(nullable = false)
+    private UUID auctionProductId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -35,7 +38,7 @@ public class Auction {
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal startingBid;
 
-    @Column(precision = 10, scale = 2, nullable = false)
+    @Column(precision = 10, scale = 2, nullable = true)
     private BigDecimal finalBid;
 
     @Column(nullable = false)
@@ -44,19 +47,20 @@ public class Auction {
     @Column(nullable = false)
     private LocalDateTime endTime;
 
-    private Auction(Long userId, AuctionStatus status, BigDecimal startingBid, BigDecimal finalBid,
+    private Auction(UUID auctionProductId,
+        BigDecimal startingBid,
         LocalDateTime startTime, LocalDateTime endTime) {
-        this.userId = userId;
-        this.status = status;
+        this.auctionProductId = auctionProductId;
+        this.status = AuctionStatus.PENDING;
         this.startingBid = startingBid;
-        this.finalBid = finalBid;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public static Auction of(Long userId, AuctionStatus status, BigDecimal startingBid,
-        BigDecimal finalBid, LocalDateTime startTime, LocalDateTime endTime) {
-        return new Auction(userId, status, startingBid, finalBid, startTime, endTime);
+    public static Auction of(UUID auctionProductId, BigDecimal startingBid,
+        LocalDateTime startTime, LocalDateTime endTime) {
+        return new Auction(auctionProductId,
+            startingBid, startTime, endTime);
     }
 
 }

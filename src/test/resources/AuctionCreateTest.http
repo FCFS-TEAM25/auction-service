@@ -1,0 +1,14 @@
+### 경매 이벤트 생성(성공)
+POST localhost:8090/api/v1/auctions
+Content-Type: application/json
+#X-User-Id: 1
+#Authorization: Bearer {{$auth.token("")}}
+
+{
+  "auctionProductId": "8a463aa4-b1dc-4f27-9c3f-53b94dc45e74",
+  "startingBid": "50000",
+  "startTime": "2025-04-21T12:00:00",
+  "endTime": "2025-04-21T01:00:00"
+}
+
+### 경매 이벤트 생성 (실패)

@@ -1,4 +1,4 @@
-package com.sparta.limited.auction_service.auction.application.dto.reponse;
+package com.sparta.limited.auction_service.auction.application.dto.response;
 
 import com.sparta.limited.auction_service.auction.domain.model.AuctionStatus;
 import java.math.BigDecimal;

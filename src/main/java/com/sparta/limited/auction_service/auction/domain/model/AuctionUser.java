@@ -1,5 +1,6 @@
 package com.sparta.limited.auction_service.auction.domain.model;
 
+import com.sparta.limited.common_module.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +23,7 @@ public class AuctionUser extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false)
     private UUID auctionId;
 
     @Column(nullable = false)
@@ -40,6 +41,6 @@ public class AuctionUser extends BaseEntity {
     public static AuctionUser of(UUID auctionId, Long userId, BigDecimal bid) {
         return new AuctionUser(auctionId, userId, bid);
     }
-    
+
 }
 

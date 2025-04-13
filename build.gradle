@@ -20,6 +20,13 @@ configurations {
 }
 
 repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/LIMITED-TEAM25/common-module")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
     mavenCentral()
 }
 
