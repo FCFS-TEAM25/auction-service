@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class AuctionProductServiceImpl implements AuctionProductService {
 
     private final AuctionProductRepository auctionProductRepository;
@@ -23,14 +22,11 @@ public class AuctionProductServiceImpl implements AuctionProductService {
 
     @Transactional
     public AuctionProductCreateResponse createAuctionProduct(AuctionProductCreateRequest request) {
-        log.info("productId: "+ request.getProductId());
         UUID productId = request.getProductId();
 
         ProductInfo productInfo = productClientService.getProduct(productId);
 
-        log.info("productInfo: "+ productInfo);
         AuctionProduct auctionProduct = AuctionProductMapper.toEntity(productInfo);
-        log.info("auctionProduct: "+ auctionProduct);
         auctionProductRepository.save(auctionProduct);
         return AuctionProductMapper.toResponse(auctionProduct);
     }

@@ -16,14 +16,7 @@ public class ProductClientService {
     private final ProductClient productClient;
 
     public ProductInfo getProduct(UUID productId) {
-        log.info("FeignClient productId: "+ productId);
         ProductReadResponse response = productClient.getProduct(productId);
-        log.info("response: "+ ProductInfo.from(
-            response.getProductId(),
-            response.getTitle(),
-            response.getDescription(),
-            response.getPrice()
-        ));
         return ProductInfo.from(
             response.getProductId(),
             response.getTitle(),
