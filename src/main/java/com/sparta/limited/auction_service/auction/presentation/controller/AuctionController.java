@@ -36,6 +36,6 @@ public class AuctionController {
         @RequestHeader("X-User-Id") Long userId,
         @RequestBody AuctionCreateBidRequest request) {
         AuctionCreateBidResponse response = auctionService.createAuctionBid(auctionId, userId, request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
