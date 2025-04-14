@@ -1,5 +1,6 @@
 package com.sparta.limited.auction_service.auction.infrastructure.repository;
 
+import com.sparta.limited.auction_service.auction.domain.exception.AuctionErrorCode;
 import com.sparta.limited.auction_service.auction.domain.model.Auction;
 import com.sparta.limited.auction_service.auction.domain.model.AuctionUser;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRepository;
@@ -28,8 +29,9 @@ public class AuctionBidRepositoryImpl implements AuctionBidRepository {
     }
 
     @Override
-    public Optional<AuctionUser> findFirstByAuctionIdOrderByBidDescCreatedAtAsc(UUID auctionId) {
-        return jpaAuctionBidRepository.findFirstByAuctionIdOrderByBidDescCreatedAtAsc(auctionId);
+    public AuctionUser findFirstByAuctionIdOrderByBidDescCreatedAtAsc(UUID auctionId) {
+        return jpaAuctionBidRepository.findFirstByAuctionIdOrderByBidDescCreatedAtAsc(auctionId)
+            .orElseThrow(() -> AuctionErrorCode.NO_BIDS_FOUND.toException());
     }
 
 }

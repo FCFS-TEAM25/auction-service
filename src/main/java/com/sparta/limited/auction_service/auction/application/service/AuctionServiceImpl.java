@@ -50,8 +50,7 @@ public class AuctionServiceImpl implements AuctionService {
     public AuctionWinnerResponse selectAuctionWinner(UUID auctionId) {
         Auction auction = auctionRepository.findById(auctionId);
 
-        AuctionUser winner = auctionBidRepository.findFirstByAuctionIdOrderByBidDescCreatedAtAsc(auctionId)
-            .orElseThrow(() -> AuctionErrorCode.NO_BIDS_FOUND.toException());
+        AuctionUser winner = auctionBidRepository.findFirstByAuctionIdOrderByBidDescCreatedAtAsc(auctionId);
 
         auction.assignWinner(winner.getUserId(), winner.getBid());
 

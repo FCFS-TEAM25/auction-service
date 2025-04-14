@@ -1,9 +1,7 @@
 ### 경매 낙찰자 선정(성공)
 PUT localhost:19097/api/v1/auctions/bd3dc030-2435-4326-a679-fc97e3f3e42f/winner
 Content-Type: application/json
-X-User-Id: 1
+#X-User-Id: 1
 #Authorization: Bearer {{$auth.token("")}}
 
-
-### 경매 낙찰자 선정(실패)
 

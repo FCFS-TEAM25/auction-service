@@ -10,5 +10,5 @@ public interface AuctionBidRepository {
 
     boolean existsByAuctionIdAndUserId(UUID auctionId, Long userId);
 
-    Optional<AuctionUser> findFirstByAuctionIdOrderByBidDescCreatedAtAsc(UUID auctionId);
+    AuctionUser findFirstByAuctionIdOrderByBidDescCreatedAtAsc(UUID auctionId);
 }
