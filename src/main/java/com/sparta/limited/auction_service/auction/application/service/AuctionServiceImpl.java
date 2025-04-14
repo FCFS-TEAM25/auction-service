@@ -4,6 +4,7 @@ import com.sparta.limited.auction_service.auction.application.dto.request.Auctio
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionWinnerResponse;
 import com.sparta.limited.auction_service.auction.application.mapper.AuctionBidMapper;
 import com.sparta.limited.auction_service.auction.application.mapper.AuctionMapper;
 import com.sparta.limited.auction_service.auction.domain.exception.AuctionErrorCode;
@@ -43,6 +44,17 @@ public class AuctionServiceImpl implements AuctionService {
         AuctionUser bid = AuctionBidMapper.toEntity(auctionId, userId, request);
         auctionBidRepository.save(bid);
         return AuctionBidMapper.toResponse(bid);
+    }
+
+    @Transactional
+    public AuctionWinnerResponse selectAuctionWinner(UUID auctionId) {
+        Auction auction = auctionRepository.findById(auctionId);
+
+        AuctionUser winner = auctionBidRepository.findFirstByAuctionIdOrderByBidDescCreatedAtAsc(auctionId);
+
+        auction.assignWinner(winner.getUserId(), winner.getBid());
+
+        return AuctionMapper.toWinnerResponse(auction);
     }
 
 }

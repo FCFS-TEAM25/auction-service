@@ -63,4 +63,8 @@ public class Auction extends BaseEntity {
             startingBid, startTime, endTime);
     }
 
+    public void assignWinner(Long userId, BigDecimal finalBid) {
+        this.userId = userId;
+        this.finalBid = finalBid;
+    }
 }

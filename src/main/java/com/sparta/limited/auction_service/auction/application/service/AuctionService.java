@@ -4,6 +4,7 @@ import com.sparta.limited.auction_service.auction.application.dto.request.Auctio
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionWinnerResponse;
 import java.util.UUID;
 
 public interface AuctionService {
@@ -12,4 +13,5 @@ public interface AuctionService {
 
     AuctionCreateBidResponse createAuctionBid(UUID auctionId, Long userId, AuctionCreateBidRequest request);
 
+    AuctionWinnerResponse selectAuctionWinner(UUID auctionId);
 }
