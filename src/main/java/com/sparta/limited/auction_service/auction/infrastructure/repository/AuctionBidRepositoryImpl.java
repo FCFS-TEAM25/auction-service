@@ -6,6 +6,7 @@ import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRe
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionRepository;
 import com.sparta.limited.auction_service.auction.infrastructure.persistence.JpaAuctionBidRepository;
 import com.sparta.limited.auction_service.auction.infrastructure.persistence.JpaAuctionRepository;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +20,10 @@ public class AuctionBidRepositoryImpl implements AuctionBidRepository {
     public void save(AuctionUser auctionUser) {
         jpaAuctionBidRepository.save(auctionUser);
     }
+
+    @Override
+    public boolean existsByAuctionIdAndUserId(UUID auctionId, Long userId) {
+        return jpaAuctionBidRepository.existsByAuctionIdAndUserId(auctionId, userId);
+    }
+
 }
