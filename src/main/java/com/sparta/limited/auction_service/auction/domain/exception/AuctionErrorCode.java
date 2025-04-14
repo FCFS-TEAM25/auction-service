@@ -14,7 +14,8 @@ public enum AuctionErrorCode {
 
     // 입찰 관련
     BID_BELOW_STARTING_PRICE(ErrorCode.INVALID_PARAMETER, "입찰가가 시작가보다 낮습니다."),
-    DUPLICATE_BID(ErrorCode.DUPLICATE_RESOURCE, "이미 동일한 상품에 입찰하셨습니다.");
+    DUPLICATE_BID(ErrorCode.DUPLICATE_RESOURCE, "이미 동일한 상품에 입찰하셨습니다."),
+    NO_BIDS_FOUND(ErrorCode.RESOURCES_NOT_FOUND, "경매에 입찰 내역이 없습니다.");
 
     private final ErrorCode errorCode;
     private final String detailMessage;

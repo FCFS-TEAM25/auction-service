@@ -4,6 +4,7 @@ import com.sparta.limited.auction_service.auction.application.dto.request.Auctio
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionWinnerResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,13 @@ public class AuctionController {
         @RequestHeader("X-User-Id") Long userId,
         @RequestBody AuctionCreateBidRequest request) {
         AuctionCreateBidResponse response = auctionService.createAuctionBid(auctionId, userId, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{auctionId}/winner")
+    ResponseEntity<AuctionWinnerResponse> selectAuctionWinner(
+        @PathVariable UUID auctionId) {
+        AuctionWinnerResponse response = auctionService.selectAuctionWinner(auctionId);
         return ResponseEntity.ok(response);
     }
 }
