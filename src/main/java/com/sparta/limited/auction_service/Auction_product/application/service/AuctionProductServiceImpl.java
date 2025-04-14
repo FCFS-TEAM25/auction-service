@@ -6,7 +6,7 @@ import com.sparta.limited.auction_service.Auction_product.application.mapper.Auc
 import com.sparta.limited.auction_service.Auction_product.domain.model.AuctionProduct;
 import com.sparta.limited.auction_service.Auction_product.domain.repository.AuctionProductRepository;
 import com.sparta.limited.auction_service.Auction_product.infrastructure.client.dto.ProductInfo;
-import com.sparta.limited.auction_service.Auction_product.infrastructure.service.ProductService;
+import com.sparta.limited.auction_service.Auction_product.infrastructure.service.ProductClientService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,14 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuctionProductServiceImpl implements AuctionProductService {
 
     private final AuctionProductRepository auctionProductRepository;
-    private final ProductService productService;
+    private final ProductClientService productClientService;
 
     @Transactional
     public AuctionProductCreateResponse createAuctionProduct(AuctionProductCreateRequest request) {
         log.info("productId: "+ request.getProductId());
         UUID productId = request.getProductId();
 
-        ProductInfo productInfo = productService.getProduct(productId);
+        ProductInfo productInfo = productClientService.getProduct(productId);
 
         log.info("productInfo: "+ productInfo);
         AuctionProduct auctionProduct = AuctionProductMapper.toEntity(productInfo);

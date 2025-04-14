@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ProductService {
+public class ProductClientService {
 
     private final ProductClient productClient;
 
