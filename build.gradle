@@ -47,8 +47,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
 
     // MSA
-    //implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    //implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
     // DB
     runtimeOnly 'org.postgresql:postgresql'

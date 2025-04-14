@@ -2,7 +2,9 @@ package com.sparta.limited.auction_service.Auction_product.application.dto.respo
 
 import java.math.BigDecimal;
 import java.util.UUID;
+import lombok.Getter;
 
+@Getter
 public class AuctionProductCreateResponse {
 
     private UUID id;
