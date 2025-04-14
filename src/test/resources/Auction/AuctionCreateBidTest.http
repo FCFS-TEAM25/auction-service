@@ -1,0 +1,10 @@
+### 경매 입찰 생성(성공)
+POST localhost:19097/api/v1/auctions/bd3dc030-2435-4326-a679-fc97e3f3e42f
+Content-Type: application/json
+X-User-Id: 1
+#Authorization: Bearer {{$auth.token("")}}
+
+{
+  "bid": "50000"
+}
+
