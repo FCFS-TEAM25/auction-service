@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: auction-service
+
+  config:
+    import:
+      - classpath:properties/datasource.yml
+      - classpath:properties/jpa.yml
+
+server:
+  port: 8090
