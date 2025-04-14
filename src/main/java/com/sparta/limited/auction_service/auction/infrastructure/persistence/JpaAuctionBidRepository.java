@@ -1,11 +1,11 @@
 package com.sparta.limited.auction_service.auction.infrastructure.persistence;
 
 import com.sparta.limited.auction_service.auction.domain.model.Auction;
-import java.util.Optional;
+import com.sparta.limited.auction_service.auction.domain.model.AuctionUser;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JpaAuctionRepository extends JpaRepository<Auction, UUID> {
+public interface JpaAuctionBidRepository extends JpaRepository<AuctionUser, UUID> {
 
-    Optional<Auction> findById(UUID auctionId);
+    boolean existsByAuctionIdAndUserId(UUID auctionId, Long userId);
 }

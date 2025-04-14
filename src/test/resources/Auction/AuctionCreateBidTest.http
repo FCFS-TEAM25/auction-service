@@ -1,0 +1,19 @@
+### 경매 입찰 생성(성공)
+POST localhost:19097/api/v1/auctions/bd3dc030-2435-4326-a679-fc97e3f3e42f
+Content-Type: application/json
+X-User-Id: 1
+#Authorization: Bearer {{$auth.token("")}}
+
+{
+  "bid": "50000"
+}
+
+### 경매 입찰 생성(실패)
+POST localhost:19097/api/v1/auctions/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+X-User-Id: 1
+#Authorization: Bearer {{$auth.token("")}}
+
+{
+  "bid": "30000"
+}
