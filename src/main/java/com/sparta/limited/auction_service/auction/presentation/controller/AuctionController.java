@@ -4,6 +4,7 @@ import com.sparta.limited.auction_service.auction.application.dto.request.Auctio
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,6 @@ public class AuctionController {
     ResponseEntity<AuctionCreateResponse> createAuction
         (@RequestBody AuctionCreateRequest request) {
         AuctionCreateResponse response = auctionService.createAuction(request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
