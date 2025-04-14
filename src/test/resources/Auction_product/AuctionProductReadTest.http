@@ -1,0 +1,9 @@
+### 경매 상품 조회(성공)
+GET localhost:19097/api/v1/auction-products/f0f204eb-9655-49e6-ac9a-60a1cb668e02
+Content-Type: application/json
+#X-User-Id: 1
+#Authorization: Bearer {{$auth.token("")}}
+
+### 경매 상품 조회(실패)
+GET localhost:19097/api/v1/auction-products/f0f204eb-9655-49e6-ac9a-60a1cb668e01
+Content-Type: application/json

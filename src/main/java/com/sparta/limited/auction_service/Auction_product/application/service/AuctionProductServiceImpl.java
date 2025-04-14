@@ -30,4 +30,9 @@ public class AuctionProductServiceImpl implements AuctionProductService {
         auctionProductRepository.save(auctionProduct);
         return AuctionProductMapper.toResponse(auctionProduct);
     }
+
+    public AuctionProductCreateResponse getAuctionProduct(UUID id) {
+        AuctionProduct auctionProduct = auctionProductRepository.findById(id);
+        return AuctionProductMapper.toResponse(auctionProduct);
+    }
 }
