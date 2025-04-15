@@ -2,6 +2,7 @@
 POST localhost:19097/api/v1/auction-products
 Accept: application/json
 Content-Type: application/json
+X-User-Role: ROLE_ADMIN
 #X-User-Id: 1
 #Authorization: Bearer {{$auth.token("")}}
 

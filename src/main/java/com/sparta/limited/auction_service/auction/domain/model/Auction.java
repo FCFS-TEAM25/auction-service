@@ -60,6 +60,7 @@ public class Auction extends BaseEntity {
 
     public static Auction of(UUID auctionProductId, BigDecimal startingBid,
         LocalDateTime startTime, LocalDateTime endTime) {
+        AuctionValidator.validateAuctionDates(startTime, endTime);
         return new Auction(auctionProductId,
             startingBid, startTime, endTime);
     }
@@ -77,4 +78,5 @@ public class Auction extends BaseEntity {
     public void updateStatusActive() {
         status = AuctionStatus.ACTIVE;
     }
+
 }

@@ -1,6 +1,7 @@
 ### 경매 이벤트 생성(성공)
 POST localhost:19097/api/v1/auctions
 Content-Type: application/json
+X-User-Role: ROLE_ADMIN
 #X-User-Id: 1
 #Authorization: Bearer {{$auth.token("")}}
 

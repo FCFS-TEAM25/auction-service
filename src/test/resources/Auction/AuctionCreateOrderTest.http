@@ -1,6 +1,7 @@
 ### 경매 낙찰자 주문 생성(성공)
 POST localhost:19097/api/v1/auctions/bd3dc030-2435-4326-a679-fc97e3f3e42f/purchase
 Content-Type: application/json
+X-User-Role: ROLE_USER
 X-User-Id: 2
 #Authorization: Bearer {{$auth.token("")}}
 

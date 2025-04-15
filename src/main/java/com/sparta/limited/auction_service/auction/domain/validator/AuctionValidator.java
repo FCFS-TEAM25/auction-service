@@ -70,7 +70,7 @@ public class AuctionValidator {
         }
     }
 
-    public void validateAuctionDates(LocalDateTime startTime, LocalDateTime endTime) {
+    public static void validateAuctionDates(LocalDateTime startTime, LocalDateTime endTime) {
         if (startTime.isBefore(LocalDateTime.now())) {
             throw AuctionErrorCode.INVALID_START_TIME.toException();
         }
