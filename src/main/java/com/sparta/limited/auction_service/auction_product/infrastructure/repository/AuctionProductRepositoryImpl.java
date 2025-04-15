@@ -25,4 +25,10 @@ public class AuctionProductRepositoryImpl implements AuctionProductRepository {
         return jpaAuctionProductRepository.findById(id)
             .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCES_NOT_FOUND));
     }
+
+    @Override
+    public AuctionProduct findByProductId(UUID productId) {
+        return jpaAuctionProductRepository.findByProductId(productId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCES_NOT_FOUND));
+    }
 }

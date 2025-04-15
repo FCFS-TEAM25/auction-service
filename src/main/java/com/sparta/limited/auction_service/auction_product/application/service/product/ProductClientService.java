@@ -1,7 +1,6 @@
-package com.sparta.limited.auction_service.auction_product.infrastructure.service;
+package com.sparta.limited.auction_service.auction_product.application.service.product;
 
 import com.sparta.limited.auction_service.auction_product.infrastructure.client.ProductClient;
-import com.sparta.limited.auction_service.auction_product.infrastructure.client.dto.ProductInfo;
 import com.sparta.limited.auction_service.auction_product.infrastructure.client.dto.ProductReadResponse;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;

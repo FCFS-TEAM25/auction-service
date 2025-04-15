@@ -7,7 +7,7 @@ import java.util.UUID;
 import lombok.Getter;
 
 @Getter
-public class AuctionWinnerResponse {
+public class AuctionCreateWinnerResponse {
 
     private UUID id;
     private Long userId;
@@ -18,7 +18,7 @@ public class AuctionWinnerResponse {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private AuctionWinnerResponse(UUID id, Long userId, UUID auctionProductId, AuctionStatus status,
+    private AuctionCreateWinnerResponse(UUID id, Long userId, UUID auctionProductId, AuctionStatus status,
         BigDecimal startingBid, BigDecimal finalBid, LocalDateTime startTime,
         LocalDateTime endTime) {
         this.id = id;
@@ -31,11 +31,11 @@ public class AuctionWinnerResponse {
         this.endTime = endTime;
     }
 
-    public static AuctionWinnerResponse of(UUID id, Long userId, UUID auctionProductId,
+    public static AuctionCreateWinnerResponse of(UUID id, Long userId, UUID auctionProductId,
         AuctionStatus status,
         BigDecimal startingBid, BigDecimal finalBid, LocalDateTime startTime,
         LocalDateTime endTime) {
-        return new AuctionWinnerResponse(id, userId, auctionProductId, status, startingBid,
+        return new AuctionCreateWinnerResponse(id, userId, auctionProductId, status, startingBid,
             finalBid, startTime, endTime);
     }
 

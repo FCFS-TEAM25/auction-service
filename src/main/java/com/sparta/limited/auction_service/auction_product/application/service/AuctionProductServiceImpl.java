@@ -5,8 +5,8 @@ import com.sparta.limited.auction_service.auction_product.application.dto.respon
 import com.sparta.limited.auction_service.auction_product.application.mapper.AuctionProductMapper;
 import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
 import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
-import com.sparta.limited.auction_service.auction_product.infrastructure.client.dto.ProductInfo;
-import com.sparta.limited.auction_service.auction_product.infrastructure.service.ProductClientService;
+import com.sparta.limited.auction_service.auction_product.application.service.product.ProductInfo;
+import com.sparta.limited.auction_service.auction_product.application.service.product.ProductClientService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

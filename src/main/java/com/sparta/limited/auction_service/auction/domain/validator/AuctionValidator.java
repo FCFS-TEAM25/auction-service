@@ -4,6 +4,7 @@ import com.sparta.limited.auction_service.auction.domain.exception.AuctionErrorC
 import com.sparta.limited.auction_service.auction.domain.model.Auction;
 import com.sparta.limited.auction_service.auction.domain.model.AuctionStatus;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRepository;
+import com.sparta.limited.auction_service.auction.domain.repository.AuctionRepository;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class AuctionValidator {
 
     private final AuctionBidRepository auctionBidRepository;
+    private final AuctionRepository auctionRepository;
 
     public void validateAuction(Auction auction) {
         LocalDateTime now = LocalDateTime.now();
@@ -33,6 +35,11 @@ public class AuctionValidator {
         if (auction.getStatus() != AuctionStatus.ACTIVE) {
             throw AuctionErrorCode.AUCTION_NOT_ACTIVE.toException();
         }
+
+        // 경매 상태 확인 (경매 낙찰자 구매는 경매종료된 경매여야 함 -> AuctionStatus == CLOSED)
+        if (auction.getStatus() != AuctionStatus.CLOSED) {
+            throw AuctionErrorCode.AUCTION_NOT_CLOSED.toException();
+        }
     }
 
     public void validateBidPrice(Auction auction, BigDecimal bidPrice) {
@@ -46,6 +53,20 @@ public class AuctionValidator {
         // 중복 입찰 확인
         if (auctionBidRepository.existsByAuctionIdAndUserId(auctionId, userId)) {
             throw AuctionErrorCode.DUPLICATE_BID.toException();
+        }
+    }
+
+    public void validateWinner(UUID auctionId, Long userId) {
+        // 사용자가 해당 경매의 낙찰자인지 확인
+        if (!auctionRepository.existsByIdAndUserId(auctionId, userId)) {
+            throw AuctionErrorCode.USER_NOT_WINNER.toException();
+        }
+    }
+
+    public void validateAuctionForOrder(Auction auction) {
+        // 경매 낙찰자 주문 생성용 경매 상태 확인 (경매 낙찰자 구매는 경매종료된 경매여야 함 -> AuctionStatus == CLOSED)
+        if (auction.getStatus() != AuctionStatus.CLOSED) {
+            throw AuctionErrorCode.AUCTION_NOT_CLOSED.toException();
         }
     }
 }

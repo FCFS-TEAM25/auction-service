@@ -1,10 +1,12 @@
 package com.sparta.limited.auction_service.auction.presentation.controller;
 
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateBidRequest;
+import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateOrderRequest;
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
-import com.sparta.limited.auction_service.auction.application.dto.response.AuctionWinnerResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -42,9 +44,18 @@ public class AuctionController {
     }
 
     @PutMapping("/{auctionId}/winner")
-    ResponseEntity<AuctionWinnerResponse> selectAuctionWinner(
+    ResponseEntity<AuctionCreateWinnerResponse> selectAuctionWinner(
         @PathVariable UUID auctionId) {
-        AuctionWinnerResponse response = auctionService.selectAuctionWinner(auctionId);
+        AuctionCreateWinnerResponse response = auctionService.selectAuctionWinner(auctionId);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{auctionId}/purchase")
+    ResponseEntity<AuctionCreateOrderResponse> createOrder (
+        @PathVariable UUID auctionId,
+        @RequestHeader("X-User-Id") Long userId,
+        @RequestBody AuctionCreateOrderRequest request) {
+        AuctionCreateOrderResponse response = auctionService.createOrder(auctionId, userId, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

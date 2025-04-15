@@ -9,4 +9,6 @@ public interface AuctionProductRepository {
 
     AuctionProduct findById(UUID id);
 
+    AuctionProduct findByProductId(UUID productId);
+
 }
