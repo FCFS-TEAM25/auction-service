@@ -2,7 +2,7 @@ package com.sparta.limited.auction_service.auction_product.application.mapper;
 
 import com.sparta.limited.auction_service.auction_product.application.dto.response.AuctionProductCreateResponse;
 import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
-import com.sparta.limited.auction_service.auction_product.infrastructure.client.dto.ProductInfo;
+import com.sparta.limited.auction_service.auction_product.application.service.product.ProductInfo;
 
 public class AuctionProductMapper {
 

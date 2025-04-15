@@ -25,4 +25,9 @@ public class AuctionRepositoryImpl implements AuctionRepository {
         return jpaAuctionRepository.findById(auctionId)
             .orElseThrow(() -> new BusinessException(ErrorCode.RESOURCES_NOT_FOUND, "존재하지 않는 경매입니다."));
     }
+
+    @Override
+    public boolean existsByIdAndUserId(UUID auctionId, Long userId) {
+        return jpaAuctionRepository.existsByIdAndUserId(auctionId, userId);
+    }
 }

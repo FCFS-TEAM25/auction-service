@@ -1,4 +1,4 @@
-package com.sparta.limited.auction_service.auction_product.infrastructure.client.dto;
+package com.sparta.limited.auction_service.auction_product.application.service.product;
 
 import java.math.BigDecimal;
 import java.util.UUID;

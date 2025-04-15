@@ -1,13 +1,16 @@
 package com.sparta.limited.auction_service.auction.application.service;
 
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateBidRequest;
+import com.sparta.limited.auction_service.auction.application.dto.request.OrderCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
-import com.sparta.limited.auction_service.auction.application.dto.response.AuctionWinnerResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
 import com.sparta.limited.auction_service.auction.application.mapper.AuctionBidMapper;
 import com.sparta.limited.auction_service.auction.application.mapper.AuctionMapper;
-import com.sparta.limited.auction_service.auction.domain.exception.AuctionErrorCode;
+import com.sparta.limited.auction_service.auction.application.service.order.OrderClientService;
+import com.sparta.limited.auction_service.auction.application.service.order.OrderInfo;
 import com.sparta.limited.auction_service.auction.domain.model.Auction;
 import com.sparta.limited.auction_service.auction.domain.model.AuctionUser;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRepository;
@@ -25,6 +28,7 @@ public class AuctionServiceImpl implements AuctionService {
     private final AuctionRepository auctionRepository;
     private final AuctionBidRepository auctionBidRepository;
     private final AuctionValidator auctionValidator;
+    private final OrderClientService orderClientService;
 
     @Transactional
     public AuctionCreateResponse createAuction(AuctionCreateRequest request) {
@@ -47,7 +51,7 @@ public class AuctionServiceImpl implements AuctionService {
     }
 
     @Transactional
-    public AuctionWinnerResponse selectAuctionWinner(UUID auctionId) {
+    public AuctionCreateWinnerResponse selectAuctionWinner(UUID auctionId) {
         Auction auction = auctionRepository.findById(auctionId);
 
         AuctionUser winner = auctionBidRepository.findFirstByAuctionIdOrderByBidDescCreatedAtAsc(auctionId);
@@ -55,6 +59,23 @@ public class AuctionServiceImpl implements AuctionService {
         auction.assignWinner(winner.getUserId(), winner.getBid());
 
         return AuctionMapper.toWinnerResponse(auction);
+    }
+
+    @Transactional
+    public AuctionCreateOrderResponse createOrder(UUID auctionId, Long userId,
+        OrderCreateRequest request) {
+
+        Auction auction = auctionRepository.findById(auctionId);
+
+        auctionValidator.validateAuctionForOrder(auction);
+        auctionValidator.validateWinner(auctionId, userId);
+
+        OrderInfo orderInfo = orderClientService.createOrder(userId, request);
+
+        // 재고 조회 및 감소(재고가 0개면 에러 / 1개면 0개 처리)
+
+        return AuctionMapper.toOrderResponse(orderInfo);
+
     }
 
 }
