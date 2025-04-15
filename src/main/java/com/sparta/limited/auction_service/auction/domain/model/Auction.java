@@ -1,5 +1,6 @@
 package com.sparta.limited.auction_service.auction.domain.model;
 
+import com.sparta.limited.auction_service.auction.domain.validator.AuctionValidator;
 import com.sparta.limited.common_module.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -66,5 +67,14 @@ public class Auction extends BaseEntity {
     public void assignWinner(Long userId, BigDecimal finalBid) {
         this.userId = userId;
         this.finalBid = finalBid;
+    }
+
+    public void updateStatusClose() {
+        AuctionValidator.validateStatus(this.status);
+        status = AuctionStatus.CLOSED;
+    }
+
+    public void updateStatusActive() {
+        status = AuctionStatus.ACTIVE;
     }
 }

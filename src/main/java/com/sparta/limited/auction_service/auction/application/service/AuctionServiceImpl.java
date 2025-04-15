@@ -75,7 +75,6 @@ public class AuctionServiceImpl implements AuctionService {
 
         OrderInfo orderInfo = orderClientService.createOrder(userId, request);
 
-        // 재고 조회 및 감소(재고가 0개면 에러 / 1개면 0개 처리)
         AuctionProduct auctionProduct = auctionProductRepository.findByProductId(auction.getAuctionProductId());
         auctionProduct.decreaseQuantity();
 
