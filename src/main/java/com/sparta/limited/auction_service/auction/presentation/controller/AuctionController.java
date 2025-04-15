@@ -1,7 +1,7 @@
 package com.sparta.limited.auction_service.auction.presentation.controller;
 
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateBidRequest;
-import com.sparta.limited.auction_service.auction.application.dto.request.OrderCreateRequest;
+import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateOrderRequest;
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
@@ -54,7 +54,7 @@ public class AuctionController {
     ResponseEntity<AuctionCreateOrderResponse> createOrder (
         @PathVariable UUID auctionId,
         @RequestHeader("X-User-Id") Long userId,
-        @RequestBody OrderCreateRequest request) {
+        @RequestBody AuctionCreateOrderRequest request) {
         AuctionCreateOrderResponse response = auctionService.createOrder(auctionId, userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface JpaAuctionProductRepository extends JpaRepository<AuctionProduct, Long> {
     Optional<AuctionProduct> findById(UUID id);
+
+    Optional<AuctionProduct> findByProductId(UUID productId);
 }

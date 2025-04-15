@@ -1,5 +1,7 @@
 package com.sparta.limited.auction_service.auction_product.domain.model;
 
+import com.sparta.limited.auction_service.auction_product.domain.exception.AuctionProductErrorCode;
+import com.sparta.limited.common_module.exception.BusinessException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,4 +52,11 @@ public class AuctionProduct {
         return new AuctionProduct(productId, title, description, price);
     }
 
+    public void decreaseQuantity() {
+        if(quantity > 0) {
+            quantity -= 1;
+        } else {
+            throw AuctionProductErrorCode.AUCTION_PRODUCT_QUANTITY_ZERO.toException();
+        }
+    }
 }

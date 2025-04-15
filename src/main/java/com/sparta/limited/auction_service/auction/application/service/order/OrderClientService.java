@@ -1,6 +1,6 @@
 package com.sparta.limited.auction_service.auction.application.service.order;
 
-import com.sparta.limited.auction_service.auction.application.dto.request.OrderCreateRequest;
+import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateOrderRequest;
 import com.sparta.limited.auction_service.auction.infrastructure.client.OrderClient;
 import com.sparta.limited.auction_service.auction.infrastructure.client.dto.OrderCreateResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class OrderClientService {
 
     private final OrderClient orderClient;
 
-    public OrderInfo createOrder(Long userId, OrderCreateRequest request) {
+    public OrderInfo createOrder(Long userId, AuctionCreateOrderRequest request) {
         log.info("userId: "+userId);
         log.info("request: "+request);
         OrderCreateResponse response = orderClient.createOrder(userId, request);

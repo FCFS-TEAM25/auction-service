@@ -1,7 +1,7 @@
 package com.sparta.limited.auction_service.auction.application.service;
 
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateBidRequest;
-import com.sparta.limited.auction_service.auction.application.dto.request.OrderCreateRequest;
+import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateOrderRequest;
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
@@ -16,6 +16,8 @@ import com.sparta.limited.auction_service.auction.domain.model.AuctionUser;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRepository;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionRepository;
 import com.sparta.limited.auction_service.auction.domain.validator.AuctionValidator;
+import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
+import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     private final AuctionRepository auctionRepository;
     private final AuctionBidRepository auctionBidRepository;
+    private final AuctionProductRepository auctionProductRepository;
     private final AuctionValidator auctionValidator;
     private final OrderClientService orderClientService;
 
@@ -63,7 +66,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Transactional
     public AuctionCreateOrderResponse createOrder(UUID auctionId, Long userId,
-        OrderCreateRequest request) {
+        AuctionCreateOrderRequest request) {
 
         Auction auction = auctionRepository.findById(auctionId);
 
@@ -73,6 +76,8 @@ public class AuctionServiceImpl implements AuctionService {
         OrderInfo orderInfo = orderClientService.createOrder(userId, request);
 
         // 재고 조회 및 감소(재고가 0개면 에러 / 1개면 0개 처리)
+        AuctionProduct auctionProduct = auctionProductRepository.findByProductId(auction.getAuctionProductId());
+        auctionProduct.decreaseQuantity();
 
         return AuctionMapper.toOrderResponse(orderInfo);
 
