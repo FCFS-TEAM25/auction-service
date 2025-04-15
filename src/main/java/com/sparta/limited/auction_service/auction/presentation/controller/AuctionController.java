@@ -8,6 +8,7 @@ import com.sparta.limited.auction_service.auction.application.dto.response.Aucti
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
+import com.sparta.limited.common_module.common.aop.RoleCheck;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ public class AuctionController {
 
     private final AuctionService auctionService;
 
+    @RoleCheck("ROLE_ADMIN")
     @PostMapping
     ResponseEntity<AuctionCreateResponse> createAuction
         (@RequestBody AuctionCreateRequest request) {
@@ -34,6 +36,7 @@ public class AuctionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @RoleCheck("ROLE_USER")
     @PostMapping("/{auctionId}")
     ResponseEntity<AuctionCreateBidResponse> createAuctionBid(
         @PathVariable UUID auctionId,
@@ -43,6 +46,7 @@ public class AuctionController {
         return ResponseEntity.ok(response);
     }
 
+    @RoleCheck("ROLE_ADMIN")
     @PutMapping("/{auctionId}/winner")
     ResponseEntity<AuctionCreateWinnerResponse> selectAuctionWinner(
         @PathVariable UUID auctionId) {
@@ -50,6 +54,7 @@ public class AuctionController {
         return ResponseEntity.ok(response);
     }
 
+    @RoleCheck("ROLE_USER")
     @PostMapping("/{auctionId}/purchase")
     ResponseEntity<AuctionCreateOrderResponse> createOrder (
         @PathVariable UUID auctionId,

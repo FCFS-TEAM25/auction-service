@@ -69,4 +69,17 @@ public class AuctionValidator {
             throw AuctionErrorCode.AUCTION_NOT_CLOSED.toException();
         }
     }
+
+    public static void validateAuctionDates(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime.isBefore(LocalDateTime.now())) {
+            throw AuctionErrorCode.INVALID_START_TIME.toException();
+        }
+        if (startTime.isAfter(endTime)) {
+            throw AuctionErrorCode.INVALID_END_TIME.toException();
+        }
+    }
+
+    public static void validateStatus(AuctionStatus status) {
+        AuctionStatus.validateClosedStatus(status);
+    }
 }

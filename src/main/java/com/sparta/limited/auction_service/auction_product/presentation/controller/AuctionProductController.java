@@ -3,6 +3,7 @@ package com.sparta.limited.auction_service.auction_product.presentation.controll
 import com.sparta.limited.auction_service.auction_product.application.dto.request.AuctionProductCreateRequest;
 import com.sparta.limited.auction_service.auction_product.application.dto.response.AuctionProductCreateResponse;
 import com.sparta.limited.auction_service.auction_product.application.service.AuctionProductService;
+import com.sparta.limited.common_module.common.aop.RoleCheck;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class AuctionProductController {
 
     private final AuctionProductService auctionProductService;
 
+    @RoleCheck("ROLE_ADMIN")
     @PostMapping
     ResponseEntity<AuctionProductCreateResponse> createAuctionProduct(
         @RequestBody AuctionProductCreateRequest request) {

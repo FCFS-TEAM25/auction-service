@@ -19,7 +19,12 @@ public enum AuctionErrorCode {
     NO_BIDS_FOUND(ErrorCode.RESOURCES_NOT_FOUND, "경매에 입찰 내역이 없습니다."),
 
     // 낙찰자 검증 관련
-    USER_NOT_WINNER(ErrorCode.OPERATION_NOT_ALLOWED, "해당 경매의 낙찰자가 아닙니다.");
+    USER_NOT_WINNER(ErrorCode.OPERATION_NOT_ALLOWED, "해당 경매의 낙찰자가 아닙니다."),
+
+    // 스케줄링 관련 경매 시간
+    AUCTION_ALREADY_CLOSED(ErrorCode.OPERATION_NOT_ALLOWED, "이미 종료된 경매입니다."),
+    INVALID_START_TIME(ErrorCode.INVALID_PARAMETER, "시작일은 현재보다 이후여야 합니다."),
+    INVALID_END_TIME(ErrorCode.INVALID_PARAMETER, "종료일은 시작일보다 이후여야 합니다.");
 
     private final ErrorCode errorCode;
     private final String detailMessage;

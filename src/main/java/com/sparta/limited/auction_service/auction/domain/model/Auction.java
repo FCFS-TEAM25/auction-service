@@ -1,5 +1,6 @@
 package com.sparta.limited.auction_service.auction.domain.model;
 
+import com.sparta.limited.auction_service.auction.domain.validator.AuctionValidator;
 import com.sparta.limited.common_module.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,6 +60,7 @@ public class Auction extends BaseEntity {
 
     public static Auction of(UUID auctionProductId, BigDecimal startingBid,
         LocalDateTime startTime, LocalDateTime endTime) {
+        AuctionValidator.validateAuctionDates(startTime, endTime);
         return new Auction(auctionProductId,
             startingBid, startTime, endTime);
     }
@@ -67,4 +69,14 @@ public class Auction extends BaseEntity {
         this.userId = userId;
         this.finalBid = finalBid;
     }
+
+    public void updateStatusClose() {
+        AuctionValidator.validateStatus(this.status);
+        status = AuctionStatus.CLOSED;
+    }
+
+    public void updateStatusActive() {
+        status = AuctionStatus.ACTIVE;
+    }
+
 }
