@@ -4,6 +4,7 @@ import com.sparta.limited.auction_service.auction.application.dto.request.Auctio
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionReadResponse;
 import com.sparta.limited.auction_service.auction.application.service.order.OrderInfo;
 import com.sparta.limited.auction_service.auction.domain.model.Auction;
 
@@ -34,6 +35,13 @@ public class AuctionMapper {
             orderInfo.username(), orderInfo.address(),
             orderInfo.orderType(), orderInfo.status(),
             orderInfo.productId(),orderInfo.quantity(),orderInfo.price());
+    }
+
+    public static AuctionReadResponse toReadResponse(Auction auction) {
+        return AuctionReadResponse.of(auction.getId(), auction.getUserId(),
+            auction.getAuctionProductId(), auction.getStatus(),
+            auction.getStartingBid(), auction.getFinalBid(), auction.getStartTime(),
+            auction.getEndTime());
     }
 
 
