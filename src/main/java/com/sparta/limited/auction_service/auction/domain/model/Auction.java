@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -47,6 +48,9 @@ public class Auction extends BaseEntity {
 
     @Column(nullable = false)
     private LocalDateTime endTime;
+
+    @Version
+    private Integer version;
 
     private Auction(UUID auctionProductId,
         BigDecimal startingBid,
