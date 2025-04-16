@@ -7,12 +7,14 @@ import com.sparta.limited.auction_service.auction.application.dto.response.Aucti
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionReadResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
 import com.sparta.limited.common_module.common.aop.RoleCheck;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -62,5 +64,12 @@ public class AuctionController {
         @RequestBody AuctionCreateOrderRequest request) {
         AuctionCreateOrderResponse response = auctionService.createOrder(auctionId, userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/{auctionId}")
+    ResponseEntity<AuctionReadResponse> getAuction(
+        @PathVariable UUID auctionId) {
+        AuctionReadResponse response = auctionService.getAuction(auctionId);
+        return ResponseEntity.ok(response);
     }
 }
