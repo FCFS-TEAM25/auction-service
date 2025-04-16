@@ -7,6 +7,7 @@ import com.sparta.limited.auction_service.auction.application.dto.response.Aucti
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionReadResponse;
 import com.sparta.limited.auction_service.auction.application.mapper.AuctionBidMapper;
 import com.sparta.limited.auction_service.auction.application.mapper.AuctionMapper;
 import com.sparta.limited.auction_service.auction.application.service.order.OrderClientService;
@@ -16,6 +17,7 @@ import com.sparta.limited.auction_service.auction.domain.model.AuctionUser;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRepository;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionRepository;
 import com.sparta.limited.auction_service.auction.domain.validator.AuctionValidator;
+import com.sparta.limited.auction_service.auction_product.application.mapper.AuctionProductMapper;
 import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
 import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
 import java.util.UUID;
@@ -80,6 +82,12 @@ public class AuctionServiceImpl implements AuctionService {
 
         return AuctionMapper.toOrderResponse(orderInfo);
 
+    }
+
+    @Transactional(readOnly = true)
+    public AuctionReadResponse getAuction(UUID auctionId) {
+        Auction auction = auctionRepository.findById(auctionId);
+        return AuctionMapper.toReadResponse(auction);
     }
 
 }
