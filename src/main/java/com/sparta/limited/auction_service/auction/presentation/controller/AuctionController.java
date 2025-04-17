@@ -10,6 +10,7 @@ import com.sparta.limited.auction_service.auction.application.dto.response.Aucti
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionReadResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
 import com.sparta.limited.common_module.common.aop.RoleCheck;
+import java.net.URI;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,7 +37,13 @@ public class AuctionController {
     ResponseEntity<AuctionCreateResponse> createAuction
         (@RequestBody AuctionCreateRequest request) {
         AuctionCreateResponse response = auctionService.createAuction(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+            .path("/api/v1/auctions/{id}")
+            .buildAndExpand(response.getId())
+            .toUri();
+
+        return ResponseEntity.created(uri).body(response);
     }
 
     @RoleCheck("ROLE_USER")
