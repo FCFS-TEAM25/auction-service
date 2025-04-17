@@ -36,7 +36,7 @@ public class AuctionScheduler {
             } catch (OptimisticLockException | StaleObjectStateException e) {
                 log.error("PENDING -> ACTIVE 상태 변경 실패(낙관적 락) - id: {}, 에러: {}",
                     auction.getId(), e.getMessage());
-                throw e; // 예외를 다시 던져 트랜잭션 롤백을 보장
+                throw e;
             }
         }
 
@@ -49,7 +49,7 @@ public class AuctionScheduler {
             } catch (OptimisticLockException | StaleObjectStateException e) {
                 log.error("ACTIVE -> CLOSED 상태 변경 실패(낙관적 락) - id: {}, 에러: {}",
                     auction.getId(), e.getMessage());
-                throw e; // 예외를 다시 던져 트랜잭션 롤백을 보장
+                throw e;
             }
         }
 
