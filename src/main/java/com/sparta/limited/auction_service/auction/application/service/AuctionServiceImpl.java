@@ -37,6 +37,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Transactional
     public AuctionCreateResponse createAuction(AuctionCreateRequest request) {
+        auctionProductRepository.findByProductId(request.getAuctionProductId());
         Auction auction = AuctionMapper.toEntity(request);
         auctionRepository.save(auction);
         return AuctionMapper.toResponse(auction);
@@ -47,8 +48,8 @@ public class AuctionServiceImpl implements AuctionService {
         Auction auction = auctionRepository.findById(auctionId);
 
         auctionValidator.validateAuction(auction);
-        auctionValidator.validateBidPrice(auction, request.getBid());
         auctionValidator.validateNoDuplicateBid(auctionId, userId);
+        auctionValidator.validateBidPrice(auction, request.getBid());
 
         AuctionUser bid = AuctionBidMapper.toEntity(auctionId, userId, request);
         auctionBidRepository.save(bid);
