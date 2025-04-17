@@ -60,8 +60,8 @@ class AuctionBidThreadTest {
     @Test
     @DisplayName("경매 입찰 동시성 테스트")
     public void auctionBidTest() throws InterruptedException {
-        int numThreads = 4000;
-        ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
+        int numThreads = 7000;
+        ExecutorService executorService = Executors.newFixedThreadPool(128);
         CountDownLatch latch = new CountDownLatch(numThreads);
         AtomicInteger successCount = new AtomicInteger();
         AtomicInteger failCount = new AtomicInteger();
