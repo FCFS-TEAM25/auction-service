@@ -10,4 +10,7 @@ public class AuctionCreateBidRequest {
 
     private BigDecimal bid;
 
+    public AuctionCreateBidRequest(BigDecimal bid) {
+        this.bid = bid;
+    }
 }
