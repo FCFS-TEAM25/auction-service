@@ -53,7 +53,13 @@ public class AuctionController {
         @RequestHeader("X-User-Id") Long userId,
         @RequestBody AuctionCreateBidRequest request) {
         AuctionCreateBidResponse response = auctionService.createAuctionBid(auctionId, userId, request);
-        return ResponseEntity.ok(response);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+            .path("/api/v1/auctions/{auctionId}")
+            .buildAndExpand(auctionId)
+            .toUri();
+
+        return ResponseEntity.created(uri).body(response);
     }
 
     @RoleCheck("ROLE_ADMIN")
