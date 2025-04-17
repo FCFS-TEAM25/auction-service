@@ -29,34 +29,29 @@ public class AuctionScheduler {
 
         List<Auction> toStart = auctionRepository.findByStatusAndStartTimeBefore(
             AuctionStatus.PENDING, now);
-        toStart.forEach(auction -> {
+        for (Auction auction : toStart) {
             try {
                 auction.updateStatusActive();
+                log.info("PENDING -> ACTIVE 상태 변경 완료 (ID: {})", auction.getId());
             } catch (OptimisticLockException | StaleObjectStateException e) {
-                try {
-                    Auction refreshedAuction = auctionRepository.findById(auction.getId());
-                    refreshedAuction.updateStatusActive();
-                } catch (Exception retryException) {
-                    log.error("PENDING -> ACTIVE 상태 변경 재시도 실패(낙관적 락) - id: {}, 에러: {}",
-                        auction.getId(), retryException.getMessage());
-                }
+                log.error("PENDING -> ACTIVE 상태 변경 실패(낙관적 락) - id: {}, 에러: {}",
+                    auction.getId(), e.getMessage());
+                throw e; // 예외를 다시 던져 트랜잭션 롤백을 보장
             }
-        });
+        }
 
         List<Auction> toEnd = auctionRepository.findByStatusAndEndTimeBefore(
             AuctionStatus.ACTIVE, now);
-        toEnd.forEach(auction -> {
+        for (Auction auction : toEnd) {
             try {
                 auction.updateStatusClose();
+                log.info("ACTIVE -> CLOSED 상태 변경 완료 (ID: {})", auction.getId());
             } catch (OptimisticLockException | StaleObjectStateException e) {
-                try {
-                    Auction refreshedAuction = auctionRepository.findById(auction.getId());
-                    refreshedAuction.updateStatusClose();
-                } catch (Exception retryException) {
-                    log.error("ACTIVE -> CLOSED 상태 변경 재시도 실패(낙관적 락) - id: {}, 에러: {}",
-                        auction.getId(), retryException.getMessage());
-                }
+                log.error("ACTIVE -> CLOSED 상태 변경 실패(낙관적 락) - id: {}, 에러: {}",
+                    auction.getId(), e.getMessage());
+                throw e; // 예외를 다시 던져 트랜잭션 롤백을 보장
             }
-        });
+        }
+
     }
 }

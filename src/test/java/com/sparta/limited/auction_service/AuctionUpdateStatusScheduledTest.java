@@ -99,19 +99,20 @@ class AuctionUpdateStatusScheduledTest {
 		logger.info("스케줄러 실행");
 		try {
 			auctionScheduler.updateStatusScheduled();
-			logger.info("스케줄러 실행 완료");
 		} catch (Exception e) {
-			logger.error("스케줄러 실행 중 예외 발생 스케줄링 재시도", e);
-			throw e;
+			logger.error("스케줄러 실행 중 예외 발생", e);
 		}
+
+		entityManager.clear();
 
 		Auction updatedAuction = auctionRepository.findById(auction.getId());
 		Integer updatedVersion = updatedAuction.getVersion();
 		logger.info("업데이트 후 버전: {}", updatedVersion);
 		logger.info("업데이트 후 경매 상태: {}", updatedAuction.getStatus());
 
-		assertEquals(AuctionStatus.ACTIVE, updatedAuction.getStatus(), "Error : 경매 상태가 ACTIVE로 변경되어야 합니다.");
-		assertTrue(updatedVersion > initialVersion, "Error : 낙관적 락으로 인해 버전이 증가해야 합니다.");
+		//실패 시 출력
+		assertEquals(AuctionStatus.PENDING, updatedAuction.getStatus(),"Error : 낙관적 락 충돌로 인해 상태가 변경되지 않아야 합니다. -> PENDING 으로");
+		assertEquals(initialVersion + 10, updatedAuction.getVersion().intValue(), "Error : 버전은 의도적으로 변경한 값으로 유지되어야 합니다. -> +10 으로");
 	}
 
 }
