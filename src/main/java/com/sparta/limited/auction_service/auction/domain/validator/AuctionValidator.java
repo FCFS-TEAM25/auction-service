@@ -35,11 +35,6 @@ public class AuctionValidator {
         if (auction.getStatus() != AuctionStatus.ACTIVE) {
             throw AuctionErrorCode.AUCTION_NOT_ACTIVE.toException();
         }
-
-        // 경매 상태 확인 (경매 낙찰자 구매는 경매종료된 경매여야 함 -> AuctionStatus == CLOSED)
-        if (auction.getStatus() != AuctionStatus.CLOSED) {
-            throw AuctionErrorCode.AUCTION_NOT_CLOSED.toException();
-        }
     }
 
     public void validateBidPrice(Auction auction, BigDecimal bidPrice) {
