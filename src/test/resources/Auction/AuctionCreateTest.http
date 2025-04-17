@@ -6,9 +6,9 @@ X-User-Role: ROLE_ADMIN
 #Authorization: Bearer {{$auth.token("")}}
 
 {
-  "auctionProductId": "237b8c90-0d8e-4b42-b7db-f56410e55b34",
-  "startingBid": "50000",
-  "startTime": "2025-04-21T12:00:00",
+  "auctionProductId": "c2b35dd1-d53a-420b-86cb-171e15766098",
+  "startingBid": "30000",
+  "startTime": "2025-04-17T16:08:00",
   "endTime": "2025-04-21T12:20:00"
 }
 

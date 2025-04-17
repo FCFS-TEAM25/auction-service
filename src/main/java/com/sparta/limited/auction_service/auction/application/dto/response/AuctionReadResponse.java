@@ -18,9 +18,14 @@ public class AuctionReadResponse {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    private String title;
+    private String description;
+    private BigDecimal price;
+    private int quantity;
+
     private AuctionReadResponse(UUID id, Long userId, UUID auctionProductId, AuctionStatus status,
         BigDecimal startingBid, BigDecimal finalBid, LocalDateTime startTime,
-        LocalDateTime endTime) {
+        LocalDateTime endTime, String title, String description, BigDecimal price, int quantity) {
         this.id = id;
         this.userId = userId;
         this.auctionProductId = auctionProductId;
@@ -29,14 +34,18 @@ public class AuctionReadResponse {
         this.finalBid = finalBid;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
     }
 
     public static AuctionReadResponse of(UUID id, Long userId, UUID auctionProductId,
         AuctionStatus status,
         BigDecimal startingBid, BigDecimal finalBid, LocalDateTime startTime,
-        LocalDateTime endTime) {
+        LocalDateTime endTime, String title, String description, BigDecimal price, int quantity) {
         return new AuctionReadResponse(id, userId, auctionProductId, status, startingBid,
-            finalBid, startTime, endTime);
+            finalBid, startTime, endTime, title, description, price, quantity);
     }
 
 }

@@ -2,8 +2,10 @@ package com.sparta.limited.auction_service.auction_product.presentation.controll
 
 import com.sparta.limited.auction_service.auction_product.application.dto.request.AuctionProductCreateRequest;
 import com.sparta.limited.auction_service.auction_product.application.dto.response.AuctionProductCreateResponse;
+import com.sparta.limited.auction_service.auction_product.application.dto.response.AuctionProductReadResponse;
 import com.sparta.limited.auction_service.auction_product.application.service.AuctionProductService;
 import com.sparta.limited.common_module.common.aop.RoleCheck;
+import java.net.URI;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,13 +30,19 @@ public class AuctionProductController {
     ResponseEntity<AuctionProductCreateResponse> createAuctionProduct(
         @RequestBody AuctionProductCreateRequest request) {
         AuctionProductCreateResponse response = auctionProductService.createAuctionProduct(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+            .path("/api/v1/auction-products/{id}")
+            .buildAndExpand(response.getId())
+            .toUri();
+
+        return ResponseEntity.created(uri).body(response);
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<AuctionProductCreateResponse> getAuctionProduct(
+    ResponseEntity<AuctionProductReadResponse> getAuctionProduct(
         @PathVariable("id") UUID id) {
-        AuctionProductCreateResponse response = auctionProductService.getAuctionProduct(id);
+        AuctionProductReadResponse response = auctionProductService.getAuctionProduct(id);
         return ResponseEntity.ok(response);
     }
 }

@@ -2,6 +2,7 @@ package com.sparta.limited.auction_service.auction_product.application.service;
 
 import com.sparta.limited.auction_service.auction_product.application.dto.request.AuctionProductCreateRequest;
 import com.sparta.limited.auction_service.auction_product.application.dto.response.AuctionProductCreateResponse;
+import com.sparta.limited.auction_service.auction_product.application.dto.response.AuctionProductReadResponse;
 import com.sparta.limited.auction_service.auction_product.application.mapper.AuctionProductMapper;
 import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
 import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
@@ -30,8 +31,8 @@ public class AuctionProductServiceImpl implements AuctionProductService {
         return AuctionProductMapper.toResponse(auctionProduct);
     }
 
-    public AuctionProductCreateResponse getAuctionProduct(UUID id) {
+    public AuctionProductReadResponse getAuctionProduct(UUID id) {
         AuctionProduct auctionProduct = auctionProductRepository.findById(id);
-        return AuctionProductMapper.toResponse(auctionProduct);
+        return AuctionProductMapper.toReadResponse(auctionProduct);
     }
 }
