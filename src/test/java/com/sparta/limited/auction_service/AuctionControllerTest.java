@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateBidRequest;
 import com.sparta.limited.auction_service.auction.application.dto.request.AuctionCreateRequest;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
+import com.sparta.limited.auction_service.auction.application.dto.response.AuctionReadResponse;
+import com.sparta.limited.auction_service.auction.application.service.AuctionService;
 import com.sparta.limited.auction_service.auction.domain.model.Auction;
+import com.sparta.limited.auction_service.auction.domain.model.AuctionStatus;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionRepository;
 import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
 import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
@@ -28,6 +31,7 @@ import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -45,6 +49,9 @@ class AuctionControllerTest {
 
     @MockitoBean
     private AuctionProductRepository auctionProductRepository;
+
+    @MockitoBean
+    private AuctionService auctionService;
 
     private UUID productId;
     private AuctionProduct mockAuctionProduct;
@@ -87,6 +94,37 @@ class AuctionControllerTest {
         perform.andDo(print())
             .andExpect(status().isCreated())
             .andExpect(header().exists(HttpHeaders.LOCATION));
+    }
+
+    @Test
+    @DisplayName("경매 이벤트 단건 조회")
+    public void getAuction() throws Exception {
+        UUID auctionId = UUID.randomUUID();
+        Long userId = 123L;
+        UUID auctionProductId = UUID.randomUUID();
+        LocalDateTime now = LocalDateTime.now();
+
+        AuctionReadResponse mockResponse = AuctionReadResponse.of(
+            auctionId,
+            userId,
+            auctionProductId,
+            AuctionStatus.CLOSED,
+            BigDecimal.valueOf(10000),
+            BigDecimal.valueOf(15000),
+            now.minusHours(1),
+            now.plusHours(5),
+            "테스트 상품",
+            "테스트 상품 설명",
+            BigDecimal.valueOf(10000),
+            1
+        );
+
+        when(auctionService.getAuction(auctionId)).thenReturn(mockResponse);
+
+        ResultActions perform = mockMvc.perform(get("/api/v1/auctions/{auctionId}", auctionId));
+
+        perform.andDo(print())
+            .andExpect(status().isOk());
     }
 
 
