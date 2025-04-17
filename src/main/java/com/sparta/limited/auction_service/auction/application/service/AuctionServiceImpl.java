@@ -22,6 +22,7 @@ import com.sparta.limited.auction_service.auction_product.domain.model.AuctionPr
 import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,7 +89,8 @@ public class AuctionServiceImpl implements AuctionService {
     @Transactional(readOnly = true)
     public AuctionReadResponse getAuction(UUID auctionId) {
         Auction auction = auctionRepository.findById(auctionId);
-        return AuctionMapper.toReadResponse(auction);
+        AuctionProduct auctionProduct = auctionProductRepository.findByProductId(auction.getAuctionProductId());
+        return AuctionMapper.toReadResponse(auction, auctionProduct);
     }
 
 }
