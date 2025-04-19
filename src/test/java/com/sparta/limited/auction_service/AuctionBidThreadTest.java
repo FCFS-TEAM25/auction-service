@@ -73,7 +73,7 @@ class AuctionBidThreadTest {
 
             executorService.submit(() -> {
                 try {
-                    AuctionCreateBidRequest request = new AuctionCreateBidRequest(bid);
+                    AuctionCreateBidRequest request = AuctionCreateBidRequest.of(bid);
                     auctionService.createAuctionBid(auctionId, userId, request);
                     successCount.incrementAndGet();
                 } catch (Exception e) {
