@@ -8,11 +8,9 @@ spring:
   config:
     import:
       - optional:file:.env[.properties]
-      - classpath:properties/datasource.yml
       - classpath:properties/jpa.yml
+      - classpath:properties/datasource.yml
       - classpath:properties/eureka-client.yml
-  profiles:
-    active: local
 
 logging:
   level:
