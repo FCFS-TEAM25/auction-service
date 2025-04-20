@@ -1,12 +1,12 @@
 ### 경매 입찰 생성(성공)
-POST localhost:19097/api/v1/auctions/7422cf34-f259-4bdc-ba26-4b81cef4007e
+POST localhost:19097/api/v1/auctions/788fabfe-71c2-4c95-a783-f492806707df
 Content-Type: application/json
 X-User-Role: ROLE_USER
-X-User-Id: 3
+X-User-Id: 6
 #Authorization: Bearer {{$auth.token("")}}
 
 {
-  "bid": "60000"
+  "bid": "30000"
 }
 
 ### 경매 입찰 생성(실패)
