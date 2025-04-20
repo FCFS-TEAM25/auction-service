@@ -1,15 +1,15 @@
 ### 경매 낙찰자 주문 생성(성공)
-POST localhost:19097/api/v1/auctions/bd3dc030-2435-4326-a679-fc97e3f3e42f/purchase
+POST localhost:19097/api/v1/auctions/788fabfe-71c2-4c95-a783-f492806707df/purchase
 Content-Type: application/json
 X-User-Role: ROLE_USER
-X-User-Id: 2
+X-User-Id: 3
 #Authorization: Bearer {{$auth.token("")}}
 
 {
   "orderType": "AUCTION",
-  "productId": "237b8c90-0d8e-4b42-b7db-f56410e55b34",
+  "productId": "54fc5e98-969a-44af-93d4-ab720899b2cf",
   "quantity": "1",
-  "price": "48000"
+  "price": "60000"
 }
 
 

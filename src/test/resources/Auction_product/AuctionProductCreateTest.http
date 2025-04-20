@@ -7,7 +7,7 @@ X-User-Role: ROLE_ADMIN
 #Authorization: Bearer {{$auth.token("")}}
 
 {
-  "productId": "c2b35dd1-d53a-420b-86cb-171e15766098"
+  "productId": "54fc5e98-969a-44af-93d4-ab720899b2cf"
 }
 
 ### 경매 상품 생성 (실패)

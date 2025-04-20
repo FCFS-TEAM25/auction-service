@@ -6,10 +6,10 @@ X-User-Role: ROLE_ADMIN
 #Authorization: Bearer {{$auth.token("")}}
 
 {
-  "auctionProductId": "c2b35dd1-d53a-420b-86cb-171e15766098",
+  "auctionProductId": "54fc5e98-969a-44af-93d4-ab720899b2cf",
   "startingBid": "30000",
-  "startTime": "2025-04-17T16:08:00",
-  "endTime": "2025-04-21T12:20:00"
+  "startTime": "2025-04-20T21:07:00",
+  "endTime": "2025-04-20T21:10:00"
 }
 
 ### 경매 이벤트 생성 (실패)

@@ -9,6 +9,7 @@ import com.sparta.limited.auction_service.auction.application.dto.response.Aucti
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionReadResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
+import com.sparta.limited.common_module.common.annotation.CurrentUserId;
 import com.sparta.limited.common_module.common.aop.RoleCheck;
 import java.net.URI;
 import java.util.UUID;
@@ -50,7 +51,7 @@ public class AuctionController {
     @PostMapping("/{auctionId}")
     ResponseEntity<AuctionCreateBidResponse> createAuctionBid(
         @PathVariable UUID auctionId,
-        @RequestHeader("X-User-Id") Long userId,
+        @CurrentUserId Long userId,
         @RequestBody AuctionCreateBidRequest request) {
         AuctionCreateBidResponse response = auctionService.createAuctionBid(auctionId, userId, request);
 
@@ -74,7 +75,7 @@ public class AuctionController {
     @PostMapping("/{auctionId}/purchase")
     ResponseEntity<AuctionCreateOrderResponse> createOrder (
         @PathVariable UUID auctionId,
-        @RequestHeader("X-User-Id") Long userId,
+        @CurrentUserId Long userId,
         @RequestBody AuctionCreateOrderRequest request) {
         AuctionCreateOrderResponse response = auctionService.createOrder(auctionId, userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
