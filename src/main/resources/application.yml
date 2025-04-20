@@ -11,6 +11,7 @@ spring:
       - classpath:properties/datasource.yml
       - classpath:properties/jpa.yml
       - classpath:properties/eureka-client.yml
+      - classpath:properties/actuator.yml
   profiles:
     active: local
 
