@@ -13,4 +13,16 @@ public class AuctionCreateRequest {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    private AuctionCreateRequest(UUID auctionProductId, BigDecimal startingBid, LocalDateTime startTime, LocalDateTime endTime) {
+        this.auctionProductId = auctionProductId;
+        this.startingBid = startingBid;
+        this.startTime = startTime;
+        this.endTime = endTime;
+
+    }
+
+    public static AuctionCreateRequest of(UUID auctionProductId, BigDecimal startingBid, LocalDateTime startTime, LocalDateTime endTime) {
+        return new AuctionCreateRequest(auctionProductId, startingBid, startTime, endTime);
+    }
+
 }

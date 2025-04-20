@@ -10,10 +10,10 @@ import lombok.Getter;
 @Getter
 public class AuctionCreateBidResponse {
 
-    private UUID id;
-    private UUID auctionId;
-    private Long userId;
-    private BigDecimal bid;
+    private final UUID id;
+    private final UUID auctionId;
+    private final Long userId;
+    private final BigDecimal bid;
 
     private AuctionCreateBidResponse(UUID id, UUID auctionId, Long userId, BigDecimal bid) {
         this.id = id;
