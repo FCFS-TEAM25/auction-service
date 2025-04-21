@@ -25,7 +25,9 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.test.context.ActiveProfiles;
 
+@ActiveProfiles("test")
 @DisplayName("API: auction-serviceImpl")
 @ExtendWith(MockitoExtension.class)
 class AuctionServiceImplTest {
