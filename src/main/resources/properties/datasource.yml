@@ -4,7 +4,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
-    url: ${POSTGRES_URL_USER}
+    url: ${POSTGRES_URL}
 
 ---
 
@@ -15,3 +15,13 @@ spring:
     username: ${TEST_POSTGRES_USER}
     password: ${TEST_POSTGRES_PASSWORD}
     url: ${TEST_POSTGRES_URL}
+
+---
+
+spring:
+  config.activate.on-profile: docker
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${DOCKER_POSTGRES_USER}
+    password: ${DOCKER_POSTGRES_PASSWORD}
+    url: ${DOCKER_POSTGRES_URL}
