@@ -1,6 +1,24 @@
 services:
   auction-service:
-    platform: linux/amd64
-    build:
-      dockerfile: Dockerfile
+    container_name: auction-service
     image: mummumm/auction-service:latest
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USERNAME: ${USERNAME}
+        SECRET_KEY: ${SECRET_KEY}
+    ports:
+      - '19097:19097'
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    mem_limit: 1024mb
+    cpus: 0.5
+    networks:
+      - limited-team25
+
+networks:
+  limited-team25:
+    external: true

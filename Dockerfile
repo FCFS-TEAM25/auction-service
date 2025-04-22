@@ -1,4 +1,14 @@
-FROM openjdk:17.0.1-jdk-slim
-VOLUME /tmp
-COPY ./build/libs/auction-service-0.0.1-SNAPSHOT.jar auction-service.jar
-ENTRYPOINT ["java", "-jar", "auction-service.jar"]
+FROM eclipse-temurin:17-jdk AS jar_builder
+
+COPY . .
+
+ARG USERNAME=${USERNAME}
+ARG SECRET_KEY=${SECRET_KEY}
+
+RUN ./gradlew clean bootJar -Pgpr.user=${USERNAME} -Pgpr.key=${SECRET_KEY}
+
+FROM eclipse-temurin:17-jre
+
+COPY --from=jar_builder /build/libs/*jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
