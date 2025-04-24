@@ -20,8 +20,7 @@ public class AuctionScheduler {
 
     private final AuctionRepository auctionRepository;
 
-    //@Scheduled(cron = "0 * * * * *")
-    @Scheduled(cron = "0 0 * * * *")
+    @Scheduled(cron = "0 * * * * *")
     @Transactional
     public void updateStatusScheduled() {
 
