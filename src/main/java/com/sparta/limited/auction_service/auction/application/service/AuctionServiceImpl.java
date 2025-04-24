@@ -17,12 +17,10 @@ import com.sparta.limited.auction_service.auction.domain.model.AuctionUser;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRepository;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionRepository;
 import com.sparta.limited.auction_service.auction.domain.validator.AuctionValidator;
-import com.sparta.limited.auction_service.auction_product.application.mapper.AuctionProductMapper;
 import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
 import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
