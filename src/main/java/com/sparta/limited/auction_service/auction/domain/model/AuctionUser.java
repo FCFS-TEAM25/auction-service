@@ -12,11 +12,15 @@ import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.Index;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "p_auction_user")
+@Table(name = "p_auction_user",
+    indexes = {
+        @Index(name = "idx_auction_user", columnList = "auction_id,user_id", unique = true)
+    })
 public class AuctionUser extends BaseEntity {
 
     @Id

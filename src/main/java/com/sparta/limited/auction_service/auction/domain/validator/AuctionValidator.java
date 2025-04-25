@@ -27,9 +27,9 @@ public class AuctionValidator {
         }
 
         // 경매 시작 시간
-        if (auction.getStartTime().isAfter(now)) {
-            throw AuctionErrorCode.AUCTION_NOT_STARTED.toException();
-        }
+//        if (auction.getStartTime().isAfter(now)) {
+//            throw AuctionErrorCode.AUCTION_NOT_STARTED.toException();
+//        }
 
         // 경매 상태 확인 (진행 중인 경매여야 함 -> AuctionStatus == ACTIVE)
         if (auction.getStatus() != AuctionStatus.ACTIVE) {
