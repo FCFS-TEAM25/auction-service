@@ -1,0 +1,6 @@
+### 경매 이벤트 조회(성공)
+GET localhost:19097/api/v1/auctions/7422cf34-f259-4bdc-ba26-4b81cef4007e
+Content-Type: application/json
+
+
+### 경매 이벤트 조회 (실패)

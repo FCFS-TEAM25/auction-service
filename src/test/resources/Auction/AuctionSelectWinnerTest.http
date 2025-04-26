@@ -1,0 +1,8 @@
+### 경매 낙찰자 선정(성공)
+PUT localhost:19097/api/v1/auctions/788fabfe-71c2-4c95-a783-f492806707df/winner
+Content-Type: application/json
+X-User-Role: ROLE_ADMIN
+#X-User-Id: 1
+#Authorization: Bearer {{$auth.token("")}}
+
+

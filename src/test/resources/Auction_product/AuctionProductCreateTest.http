@@ -1,0 +1,13 @@
+### 경매 상품 생성(성공)
+POST localhost:19097/api/v1/auction-products
+Accept: application/json
+Content-Type: application/json
+X-User-Role: ROLE_ADMIN
+#X-User-Id: 1
+#Authorization: Bearer {{$auth.token("")}}
+
+{
+  "productId": "54fc5e98-969a-44af-93d4-ab720899b2cf"
+}
+
+### 경매 상품 생성 (실패)

@@ -1,0 +1,27 @@
+server:
+  port: 19097
+
+spring:
+  application:
+    name: auction-service
+
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - classpath:properties/datasource.yml
+      - classpath:properties/jpa.yml
+      - classpath:properties/eureka-client.yml
+      - classpath:properties/actuator.yml
+  profiles:
+    active: local
+
+logging:
+  level:
+    # 클라이언트 패키지 로깅
+    com.sparta.limited.auction_service.Auction_product.infrastructure.client: DEBUG
+    # Feign 전체 로깅
+    org.springframework.cloud.openfeign: DEBUG
+    # Feign 요청/응답 로깅
+    feign: DEBUG
+    # 추가적으로 유용할 수 있는 로깅
+    org.springframework.web: DEBUG
