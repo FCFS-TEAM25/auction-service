@@ -18,6 +18,8 @@ services:
     cpus: 1
     networks:
       - limited-team25
+    depends_on:
+      - redis
 
 networks:
   limited-team25:
