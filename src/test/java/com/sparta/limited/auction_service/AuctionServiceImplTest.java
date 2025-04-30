@@ -32,7 +32,7 @@ import org.springframework.test.context.ActiveProfiles;
 @ExtendWith(MockitoExtension.class)
 class AuctionServiceImplTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuctionBidThreadTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuctionServiceImplTest.class);
 
     @Mock
     private AuctionRepository auctionRepository;
