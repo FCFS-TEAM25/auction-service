@@ -21,12 +21,11 @@ end
 local bidInfo = {
     auctionId = auctionId,
     userId = userId,
-    bidPrice = bid,
-    retryCount = 0
+    bidPrice = bid
 }
 
 local encodedBidInfo = cjson.encode(bidInfo)
-redis.call('RPUSH', 'bid_log_list', encodedBidInfo)
+redis.call('RPUSH', 'bid_log:' .. auctionId, encodedBidInfo)
 
 if not currentMaxBid or bid > currentMaxBid then
     redis.call("HMSET", maxBidKey, "userId", userId, "bid", bid)
