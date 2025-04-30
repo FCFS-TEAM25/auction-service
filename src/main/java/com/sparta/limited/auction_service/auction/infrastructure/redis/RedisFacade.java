@@ -1,5 +1,6 @@
 package com.sparta.limited.auction_service.auction.infrastructure.redis;
 
+import com.sparta.limited.auction_service.auction.application.service.dto.MaxBidData;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,4 +14,5 @@ public interface RedisFacade {
 
     // 입찰 관련
     Long executeBidValidation(UUID auctionId, Long userId, BigDecimal bid);
+    MaxBidData getMaxBidInfo(UUID auctionId);
 }

@@ -1,5 +1,6 @@
 package com.sparta.limited.auction_service.auction.infrastructure.redis;
 
+import com.sparta.limited.auction_service.auction.application.service.dto.MaxBidData;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -30,6 +31,11 @@ public class RedisFacadeImpl implements RedisFacade {
     @Override
     public Long executeBidValidation(UUID auctionId, Long userId, BigDecimal bid) {
         return luaScriptService.executeBidValidation(auctionId, userId, bid);
+    }
+
+    @Override
+    public MaxBidData getMaxBidInfo(UUID auctionId) {
+        return cacheService.getMaxBidInfo(auctionId);
     }
 
 }
