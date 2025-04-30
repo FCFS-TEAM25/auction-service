@@ -6,7 +6,6 @@ import com.sparta.limited.auction_service.auction.application.dto.request.Auctio
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateBidResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateOrderResponse;
-import com.sparta.limited.auction_service.auction.application.dto.response.AuctionCreateWinnerResponse;
 import com.sparta.limited.auction_service.auction.application.dto.response.AuctionReadResponse;
 import com.sparta.limited.auction_service.auction.application.service.AuctionService;
 import com.sparta.limited.common_module.common.annotation.CurrentUserId;
@@ -61,14 +60,6 @@ public class AuctionController {
             .toUri();
 
         return ResponseEntity.created(uri).body(response);
-    }
-
-    @RoleCheck("ROLE_ADMIN")
-    @PutMapping("/{auctionId}/winner")
-    ResponseEntity<AuctionCreateWinnerResponse> selectAuctionWinner(
-        @PathVariable UUID auctionId) {
-        AuctionCreateWinnerResponse response = auctionService.selectAuctionWinner(auctionId);
-        return ResponseEntity.ok(response);
     }
 
     @RoleCheck("ROLE_USER")
