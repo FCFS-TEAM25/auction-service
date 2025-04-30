@@ -1,10 +1,12 @@
 package com.sparta.limited.auction_service.auction.infrastructure.redis;
 
+import com.sparta.limited.auction_service.auction.application.service.dto.MaxBidData;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +41,21 @@ public class RedisCacheService {
 
         redisTemplate.opsForHash().putAll(maxBidKey, bidInfo);
         redisTemplate.expire(maxBidKey, setTtlSeconds(endTime), TimeUnit.SECONDS);
+    }
+
+    public MaxBidData getMaxBidInfo(UUID auctionId) {
+        String maxBidKey = "maxBid:" + auctionId;
+        Map<Object, Object> data = redisTemplate.opsForHash().entries(maxBidKey);
+
+        String userIdStr = data.get("userId").toString();
+        String bidStr = data.get("bid").toString();
+
+        Long userId = Long.parseLong(userIdStr);
+        BigDecimal bid = new BigDecimal(bidStr);
+
+        MaxBidData maxBidData = new MaxBidData(auctionId, userId, bid);
+
+        return maxBidData;
     }
 
     private Long setTtlSeconds(LocalDateTime date) {
