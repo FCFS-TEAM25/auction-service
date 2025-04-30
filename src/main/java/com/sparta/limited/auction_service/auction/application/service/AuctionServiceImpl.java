@@ -17,6 +17,8 @@ import com.sparta.limited.auction_service.auction.domain.model.AuctionUser;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionBidRepository;
 import com.sparta.limited.auction_service.auction.domain.repository.AuctionRepository;
 import com.sparta.limited.auction_service.auction.domain.validator.AuctionValidator;
+import com.sparta.limited.auction_service.auction.domain.validator.LuaScriptResultHandler;
+import com.sparta.limited.auction_service.auction.infrastructure.redis.RedisFacade;
 import com.sparta.limited.auction_service.auction_product.domain.model.AuctionProduct;
 import com.sparta.limited.auction_service.auction_product.domain.repository.AuctionProductRepository;
 import java.util.UUID;
@@ -34,6 +36,9 @@ public class AuctionServiceImpl implements AuctionService {
     private final AuctionValidator auctionValidator;
     private final OrderClientService orderClientService;
 
+    private final RedisFacade redisFacade;
+    private final LuaScriptResultHandler luaScriptResultHandler;
+
     @Transactional
     public AuctionCreateResponse createAuction(AuctionCreateRequest request) {
         auctionProductRepository.findByProductId(request.getAuctionProductId());
@@ -44,11 +49,8 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Transactional
     public AuctionCreateBidResponse createAuctionBid(UUID auctionId, Long userId, AuctionCreateBidRequest request) {
-        Auction auction = auctionRepository.findById(auctionId);
-
-        auctionValidator.validateAuction(auction);
-        auctionValidator.validateNoDuplicateBid(auctionId, userId);
-        auctionValidator.validateBidPrice(auction, request.getBid());
+        Long result = redisFacade.executeBidValidation(auctionId, userId, request.getBid());
+        luaScriptResultHandler.resultHandler(result, auctionId);
 
         AuctionUser bid = AuctionBidMapper.toEntity(auctionId, userId, request);
         auctionBidRepository.save(bid);
